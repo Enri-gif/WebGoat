@@ -29,7 +29,7 @@ namespace WebGoatCore.Models
             Shipment? Shipment
              )
         {
-            
+            // Der er 18 her 
             _OrderId = OrderId;
             _CustomerId = CustomerId;
             _EmployeeId = EmployeeId;
@@ -49,7 +49,44 @@ namespace WebGoatCore.Models
             _OrderPayments = OrderPayments;
             _Shipment = Shipment;
 
+
+
+        }
+                public Order(
+         Order_CustomerId CustomerId,
+          Order_EmployeeId? EmployeeId,
+           Order_OrderDate OrderDate,
+            Order_RequiredDate RequiredDate,
+            Order_ShipVia ShipVia,
+            decimal Freight,
+            Order_ShipName? ShipName,
+             Order_ShipAddress? ShipAddress,
+            Order_ShipCity? ShipCity,
+            Order_ShipRegion? ShipRegion,
+            Order_ShipPostalCode? ShipPostalCode,
+            Order_ShipCounty? ShipCountry,
+            IList<OrderDetail> OrderDetails,
+            Shipment? Shipment
+             )
+        {
+            // Der er 17 her Dette er uden OrderID
             
+            _CustomerId = CustomerId;
+            _EmployeeId = EmployeeId;
+            _OrderDate = OrderDate;
+            _RequiredDate = RequiredDate;
+            _ShipVia = ShipVia;
+            _Freight = Freight;
+            _ShipName = ShipName;
+            _ShipAddress = ShipAddress;
+            _ShipCity = ShipCity;
+            _ShipRegion = ShipRegion;
+            _ShipPostalCode = ShipPostalCode;
+            _ShipCountry = ShipCountry;
+            _OrderDetails = OrderDetails;
+            _Shipment = Shipment;
+
+
 
         }
         private readonly Order_OrderId _OrderId;  //Done
@@ -76,7 +113,112 @@ namespace WebGoatCore.Models
        
         private  decimal Total => Math.Round(_SubTotal + _Freight, 2); // Done
 
-        private  static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
+        public  int GetOrderID()
+        {
+            return _OrderId.getOrderId();
+
+        }
+        public string GetCustomerId()
+        {
+            return _CustomerId.getCustomerId();
+
+        }
+        public int GetEmployeeId()
+        {
+
+            return _EmployeeId.getEmployeeId();
+        
+        }
+        public DateTime GetOrderDate()
+        {
+
+            return _OrderDate.getOrderDate();
+
+
+        }
+        public DateTime GetRequiredDate()
+        {
+
+            return _RequiredDate.getRequiredDate();
+
+        }
+        public DateTime GetShippedDate()
+        {
+            return _ShippedDate.getShippedDate();
+
+        }
+        public int GetShipVia()
+        {
+            return _ShipVia.getShipVia();
+
+
+        }
+        public decimal GetFreight()
+        {
+            return _Freight;
+
+
+        }
+        public string GetShipName()
+        {
+            return _ShipName.getShipName();
+
+        }
+        public string GetShipAddress()
+        {
+            return _ShipAddress.getShipAddress();
+
+        }
+        public string GetShipCity()
+        {
+            return _ShipCity.getShipCity();
+        }
+        public string GetShipRegion()
+        {
+            return _ShipRegion.getShipRegion();
+        }
+        public string GetShipPostalCode()
+        {
+            return _ShipPostalCode.getShipPostalCode();
+
+
+        }
+        public string GetShipCountry()
+        {
+            return _ShipCountry.getShipCounty();
+
+
+        }
+        public IList<OrderDetail> GetOrderDetails()
+        {
+            return _OrderDetails;
+        }
+        public Customer GetCustomer()
+        {
+            return _Customer;
+
+        }
+        public IList<OrderPayment> GetOrderPayments()
+        {
+            return _OrderPayments;
+
+        }
+        public Shipment GetShipment()
+        {   
+            return _Shipment;
+
+        }
+        public decimal GetsubTotal()
+        {
+            return _SubTotal;
+
+        }
+        public decimal GetTotal()
+        {
+            return Total;
+
+        }
+        public  static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
         {
             string trackingUrl;
             Carrier = Carrier.ToLower();

@@ -4,7 +4,22 @@
 namespace WebGoatCore.Models
 {
     public class Shipper
-    {
+    {    
+        public Shipper
+        (int ShipperId,
+        string CompanyName,
+        string ServiceName,
+        double ShippingCostMultiplier,
+        string Phone
+        )
+        {
+            this.ShipperId = ShipperId;
+            this.CompanyName = CompanyName;
+            this.ServiceName = ServiceName;
+            this.ShippingCostMultiplier = ShippingCostMultiplier;
+            this.Phone = Phone;
+
+        }
         public int ShipperId { get; set; }
         public string CompanyName { get; set; }
         public string ServiceName { get; set; }

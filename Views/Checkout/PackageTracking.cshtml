@@ -32,22 +32,22 @@
                         @foreach (var order in Model.Orders)
                         {
                             <tr>
-                                <td>@order.OrderId</td>
-                                <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
-                                <td>@order.Freight.ToString("F")</td>
-                                <td>@order.ShipVia</td>
-                                <td>@order.Total.ToString("F")</td>
+                                <td>@order.GetOrderID()</td>
+                                <td>@order.GetOrderDate().ToString("yyyy-MM-dd")</td>
+                                <td>@order.GetFreight().ToString("F")</td>
+                                <td>@order.GetShipVia()</td>
+                                <td>@order.GetTotal().ToString("F")</td>
                                 <td>
-                                    @if (order.Shipment == null)
+                                    @if (order.GetShipment() == null)
                                     {
                                         <span>No tracking number recorded.</span>
                                     }
                                     else
                                     {
                                         <a asp-action="PackageTracking" 
-                                           asp-route-carrier="@order.Shipment.Shipper.CompanyName"
-                                           asp-route-trackingNumber="@order.Shipment.TrackingNumber">
-                                           @order.Shipment.TrackingNumber</a>
+                                           asp-route-carrier="@order.GetShipment().Shipper.CompanyName"
+                                           asp-route-trackingNumber="@order.GetShipment().TrackingNumber">
+                                           @order.GetShipment().TrackingNumber</a>
                                     }
                                 </td>
                             </tr>

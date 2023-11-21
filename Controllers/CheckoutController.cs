@@ -141,36 +141,39 @@ namespace WebGoatCore.Controllers
             };
 
           Order order = new Order // her har vi tænkt at lave en DTO :) OG her går vi fra Veiw-model til Model
-            {
-                ShipVia = DtoOrder.ShipVia,
-                ShipName = DtoOrder.ShipName,
-                ShipAddress = DtoOrder.ShipAddress,
-                ShipCity = DtoOrder.ShipCity,
-                ShipRegion = DtoOrder.ShipRegion,
-                ShipPostalCode = DtoOrder.ShipPostalCode,
-                ShipCountry = DtoOrder.ShipCountry,
-                OrderDetails = DtoOrder.OrderDetails,
-                CustomerId = DtoOrder.CustomerId,
-                OrderDate = DtoOrder.OrderDate,
-                RequiredDate = DtoOrder.RequiredDate,
-                Freight = DtoOrder.Freight,
-                EmployeeId = DtoOrder.EmployeeId,
-            };
+            (
+                new Order_CustomerId(DtoOrder.CustomerId),
+                new Order_EmployeeId(DtoOrder.EmployeeId),
+                new Order_OrderDate(DtoOrder.OrderDate),
+                new Order_RequiredDate(DtoOrder.RequiredDate),
+                new Order_ShipVia(DtoOrder.ShipVia),
+                DtoOrder.Freight,
+                new Order_ShipName(DtoOrder.ShipName),
+                new Order_ShipAddress(DtoOrder.ShipAddress),
+                new Order_ShipCity(DtoOrder.ShipCity),
+                new Order_ShipRegion(DtoOrder.ShipRegion),
+                new Order_ShipPostalCode(DtoOrder.ShipPostalCode),
+                new Order_ShipCounty(DtoOrder.ShipCountry),
+                DtoOrder.OrderDetails,
+                new Shipment(DateTime.Today.AddDays(1),
+                DtoOrder.ShipVia,
+                _shipperRepository.GetNextTrackingNumber(_shipperRepository.GetShipperByShipperId(DtoOrder.ShipVia)))
+            );
 
-            var approvalCode = creditCard.ChargeCard(order.Total);
+            var approvalCode = creditCard.ChargeCard(order.GetTotal());
 
-            order.Shipment = new Shipment()
-            {
-                ShipmentDate = DateTime.Today.AddDays(1),
-                ShipperId = order.ShipVia,
-                TrackingNumber = _shipperRepository.GetNextTrackingNumber(_shipperRepository.GetShipperByShipperId(order.ShipVia)),
-            };
+            // order.Shipment = new Shipment()
+            // {
+            //     ShipmentDate = DateTime.Today.AddDays(1),
+            //     ShipperId = order.ShipVia,
+            //     TrackingNumber = _shipperRepository.GetNextTrackingNumber(_shipperRepository.GetShipperByShipperId(order.ShipVia)),
+            // };
 
             //Create the order itself.
             var orderId = _orderRepository.CreateOrder(order);
 
             //Create the payment record.
-            _orderRepository.CreateOrderPayment(orderId, order.Total, creditCard.Number, creditCard.Expiry, approvalCode);
+            _orderRepository.CreateOrderPayment(orderId, order.GetTotal(), creditCard.Number, creditCard.Expiry, approvalCode);
 
             HttpContext.Session.SetInt32("OrderId", orderId);
             HttpContext.Session.Remove("Cart");

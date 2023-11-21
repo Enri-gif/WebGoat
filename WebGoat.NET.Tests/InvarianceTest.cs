@@ -9,35 +9,14 @@ namespace WebGoat.NET.Tests;
 
 public class InvarianceTest
 {
-    [Theory] // Dette noget man skal ha
-    [InlineData("kage")]
     
-    public void InvarianceOrderTest(Order order) // tester man invariance i Order Klassen. 
-    {
-        Assert.ThrowsAny<Exception>
-        (
-            Order _order = new Order 
-            (
-                new Order_OrderId (300 ),
-                new Order_CustomerId("99"),
-                new Order_EmployeeId(88),
-                new Order_OrderDate(DateTime.Now),
-                new Order_RequiredDate(DateTime.Now),
-                new Order_ShippedDate(DateTime.Now),
-                new Order_ShipVia(12),
-                23, // Decimal
-                new Order_ShipName("Tobia>>\\//>s"),
-                new Order_ShipAddress("UCL"),
-                new Order_ShipCity("Odense"),
-                new Order_ShipRegion("Fyn"),
-                new Order_ShipPostalCode("5592"),
-                new Order_ShipCounty("Denmark"),
-                // skal ha en liste af orderdetails
-                _Customer,
-                // skal ha en liste af orderpayments
-                new Shipment()
-
-            ); 
+    
+    public void InvarianceOrderTest() // tester man invariance i Order Klassen. 
+    {   
+        
+        Assert.ThrowsAny<Exception> // Hvis der IKKE kommer en fejl ensses det som en fejl
+        ( () =>
+        {
             Customer _Customer = new Customer
             (
                 "20",
@@ -54,6 +33,33 @@ public class InvarianceTest
 
     
             ); 
+            IList<OrderDetail> orderDetails = new List<OrderDetail>();
+            orderDetails.Add(new OrderDetail());
+            IList<OrderPayment> orderPayments = new List<OrderPayment>();
+            orderPayments.Add(new OrderPayment());
+
+            Order _order = new Order 
+            (
+                new Order_OrderId (30000000 ),
+                new Order_CustomerId("922222222222222222229"),
+                new Order_EmployeeId(8822555),
+                new Order_OrderDate(DateTime.MinValue),
+                new Order_RequiredDate(DateTime.MinValue),
+                new Order_ShippedDate(DateTime.MinValue),
+                new Order_ShipVia(12),
+                23, // Decimal
+                new Order_ShipName("Tobia>>\\//>s"),
+                new Order_ShipAddress("UC6521561L"),
+                new Order_ShipCity("Od555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555ense"),
+                new Order_ShipRegion("\\"),
+                new Order_ShipPostalCode("5592<>//"),
+                new Order_ShipCounty("<<>>>"),
+                orderDetails,
+                _Customer,
+                orderPayments,
+                new Shipment()
+
+            ); 
             Shipment _Shipment = new Shipment
             (
                 300,
@@ -61,11 +67,16 @@ public class InvarianceTest
                 50,
                 DateTime.Now,
                 "TrackingNumber",
-                _
-
+                _order,
+                new Shipper
+                (123,
+                "Firma Navn",
+                "Service name",
+                1232,
+                "Mobil Nummer")
 
             );
-        );
+        });
 
     }
 
