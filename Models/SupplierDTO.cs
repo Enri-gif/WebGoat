@@ -1,15 +1,19 @@
-﻿using System.Collections.Generic;
 
-#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+using System.Diagnostics.CodeAnalysis;
+
 namespace WebGoatCore.Models
-{
-    public class Supplier
+{ 
+    public class SupplierDTO
     {
-        public SupplierID SupplierId { get; set; }
-        public CompanyName CompanyName { get; set; }
+        [NotNull]
+        public string CompanyName { get; set; }
+        [NotNull]
         public string ContactName { get; set; }
+        [NotNull]
         public string? ContactTitle { get; set; } // man kan sige at "?" er fordi NUll er okie hvilke betyder dette er en mulighed
+        [NotNull]
         public string? Address { get; set; }
+        [NotNull]
         public string? City { get; set; }
         public string? Region { get; set; }
         public string? PostalCode { get; set; }
@@ -17,7 +21,5 @@ namespace WebGoatCore.Models
         public string? Phone { get; set; }
         public string? Fax { get; set; }
         public string? HomePage { get; set; }
-
-        public virtual IList<Product> Products { get; set; }
     }
 }

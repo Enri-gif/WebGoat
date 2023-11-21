@@ -5,7 +5,7 @@ namespace WebGoatCore.Models
 {
     public class Shipment
     {
-        public int ShipmentId { get; set; }
+        public int ShipmentId { get; set; } // Her kunne man også inplatmentere DomainPrimitiver!! :) 
         public int OrderId { get; set; }
         public int ShipperId { get; set; }
         public DateTime ShipmentDate { get; set; }
