@@ -23,8 +23,8 @@ namespace WebGoatCore.Data
         {
             var orderDate = DateTime.Today.AddMonths(-1);
             var topProducts = _context.Orders
-                .Where(o => o.OrderDate > orderDate)
-                .Join(_context.OrderDetails, o => o.OrderId, od => od.OrderId, (o, od) => od)
+                .Where(o => o.GetOrderDate() > orderDate)
+                .Join(_context.OrderDetails, o => o.GetOrderID(), od => od.OrderId, (o, od) => od)
                 // Turn this query to standard LINQ expression, because EF Core can't handle the remaining part
                 .AsEnumerable()
                 .GroupBy(od => od.Product)

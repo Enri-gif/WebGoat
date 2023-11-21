@@ -31,6 +31,27 @@ namespace WebGoatCore.Models
 
 
         }
+        public Customer
+        (
+            string companyName,
+            string customerId,
+            string contactName,
+            string address,
+            string city,
+            string region,
+            string postalCode,
+            string country
+        )
+        {
+            this.CompanyName = CompanyName;
+            this.CustomerId = CustomerId;
+            this.ContactName = ContactName;
+            this.Address = Address;
+            this.City = City;
+            this.Region = Region;
+            this.PostalCode = PostalCode;
+            this.Country = Country;
+        }
         public string CustomerId { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }

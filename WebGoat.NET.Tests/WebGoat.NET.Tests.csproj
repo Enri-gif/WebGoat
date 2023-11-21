@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebGoat.NET.csproj" />
+    <ProjectReference Include="..\WebGoat.NET\WebGoat.NET.csproj" />
   </ItemGroup>
 
 </Project>

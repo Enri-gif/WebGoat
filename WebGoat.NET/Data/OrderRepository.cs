@@ -21,7 +21,7 @@ namespace WebGoatCore.Data
 
         public Order GetOrderById(int orderId)
         {
-            return _context.Orders.Single(o => o.OrderId == orderId);
+            return _context.Orders.Single(o => o.GetOrderID() == orderId);
         }
 
         public int CreateOrder(Order order)
@@ -33,8 +33,8 @@ namespace WebGoatCore.Data
             // order = _context.Orders.Add(order).Entity;
             // _context.SaveChanges();
             // return order.OrderId;
-
-            string shippedDate = order.ShippedDate.HasValue ? "'" + string.Format("yyyy-MM-dd", order.ShippedDate.Value) + "'" : "NULL";
+            DateTime? defaultTime = new DateTime();
+            string shippedDate = order.GetShippedDate() != defaultTime ? "'" + string.Format("yyyy-MM-dd", order.GetShippedDate) + "'" : "NULL";
             var sql = "INSERT INTO Orders (" +
                 "CustomerId, EmployeeId, OrderDate, RequiredDate, ShippedDate, ShipVia, Freight, ShipName, ShipAddress, " +
                 "ShipCity, ShipRegion, ShipPostalCode, ShipCountry" +

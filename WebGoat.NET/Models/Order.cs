@@ -89,7 +89,8 @@ namespace WebGoatCore.Models
 
 
         }
-        private readonly Order_OrderId _OrderId;  //Done
+        //private readonly Order_OrderId _OrderId;  //Done
+        public int OrderId { get; set; }
         private readonly Order_CustomerId _CustomerId;  //Done
         private readonly Order_EmployeeId? _EmployeeId;  //Done 
         private readonly Order_OrderDate _OrderDate;  // Done
