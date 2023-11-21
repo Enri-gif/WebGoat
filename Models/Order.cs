@@ -8,31 +8,75 @@ namespace WebGoatCore.Models
 {
     public class Order
     {
-        public Order_OrderId OrderId { get; set; } //Done
-        public Order_CustomerId CustomerId { get; set; } //Done
-        public Order_EmployeeId? EmployeeId { get; set; } //Done 
-        public Order_OrderDate OrderDate { get; set; } // Done
-        public Order_RequiredDate RequiredDate { get; set; } // Done
-        public Order_ShippedDate? ShippedDate { get; set; } // Done
-        public Order_ShipVia ShipVia { get; set; } // Done
-        public Order_Freight Freight { get; set; } // Done
-        public Order_ShipName? ShipName { get; set; } // Done
-        public Order_ShipAddress? ShipAddress { get; set; } // Done
-        public Order_ShipCity? ShipCity { get; set; } // Done
-        public Order_ShipRegion? ShipRegion { get; set; } // Done
-        public Order_ShipPostalCode? ShipPostalCode { get; set; } // Done
-        public Order_ShipCounty? ShipCountry { get; set; } // Done
 
-        public virtual IList<OrderDetail> OrderDetails { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual IList<OrderPayment> OrderPayments { get; set; }
-        public virtual Shipment? Shipment { get; set; }
+        public Order( Order_OrderId OrderId,
+         Order_CustomerId CustomerId,
+          Order_EmployeeId? EmployeeId,
+           Order_OrderDate OrderDate,
+            Order_RequiredDate RequiredDate,
+             Order_ShippedDate? ShippedDate,
+            Order_ShipVia ShipVia,
+            decimal Freight,
+            Order_ShipName? ShipName,
+             Order_ShipAddress? ShipAddress,
+            Order_ShipCity? ShipCity,
+            Order_ShipRegion? ShipRegion,
+            Order_ShipPostalCode? ShipPostalCode,
+            Order_ShipCounty? ShipCountry,
+            IList<OrderDetail> OrderDetails,
+            Customer Customer,
+            IList<OrderPayment> OrderPayments,
+            Shipment? Shipment
+             )
+        {
+            
+            _OrderId = OrderId;
+            _CustomerId = CustomerId;
+            _EmployeeId = EmployeeId;
+            _OrderDate = OrderDate;
+            _RequiredDate = RequiredDate;
+            _ShippedDate = ShippedDate;
+            _ShipVia = ShipVia;
+            _Freight = Freight;
+            _ShipName = ShipName;
+            _ShipAddress = ShipAddress;
+            _ShipCity = ShipCity;
+            _ShipRegion = ShipRegion;
+            _ShipPostalCode = ShipPostalCode;
+            _ShipCountry = ShipCountry;
+            _OrderDetails = OrderDetails;
+            _Customer = Customer;
+            _OrderPayments = OrderPayments;
+            _Shipment = Shipment;
 
-        public Order_SubTotal SubTotal => OrderDetails.Sum(od => od.ExtendedPrice); // Done
-        Order_SubTotal order_SubTotal = new Order_SubTotal(()=> OrderDetails.Sum(od => od.ExtendedPrice));
-        public Order_Total Total => Math.Round(SubTotal + Freight, 2); // Done
+            
 
-        public static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
+        }
+        private readonly Order_OrderId _OrderId;  //Done
+        private readonly Order_CustomerId _CustomerId;  //Done
+        private readonly Order_EmployeeId? _EmployeeId;  //Done 
+        private readonly Order_OrderDate _OrderDate;  // Done
+        private readonly Order_RequiredDate _RequiredDate;  // Done
+        private readonly Order_ShippedDate? _ShippedDate;  // Done
+        private readonly Order_ShipVia _ShipVia;  // Done
+        private readonly decimal _Freight;  // Done
+        private readonly Order_ShipName? _ShipName;  // Done
+        private readonly Order_ShipAddress? _ShipAddress; // Done
+        private readonly Order_ShipCity? _ShipCity;  // Done
+        private readonly Order_ShipRegion? _ShipRegion;  // Done
+        private readonly Order_ShipPostalCode? _ShipPostalCode;  // Done
+        private readonly Order_ShipCounty? _ShipCountry;  // Done
+
+        private readonly  IList<OrderDetail> _OrderDetails;
+        private readonly  Customer _Customer; 
+        private readonly  IList<OrderPayment> _OrderPayments;
+        private readonly  Shipment? _Shipment;
+
+        private  decimal _SubTotal => _OrderDetails.Sum(od => od.ExtendedPrice); // Done
+       
+        private  decimal Total => Math.Round(_SubTotal + _Freight, 2); // Done
+
+        private  static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
         {
             string trackingUrl;
             Carrier = Carrier.ToLower();
