@@ -8,29 +8,29 @@ namespace WebGoatCore.Models
 {
     public class Order
     {
-        public int OrderId { get; set; }
-        public string CustomerId { get; set; }
-        public int? EmployeeId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public DateTime RequiredDate { get; set; }
-        public DateTime? ShippedDate { get; set; }
-        public int ShipVia { get; set; }
-        public decimal Freight { get; set; }
-        public string? ShipName { get; set; }
-        public string? ShipAddress { get; set; }
-        public string? ShipCity { get; set; }
-        public string? ShipRegion { get; set; }
-        public string? ShipPostalCode { get; set; }
-        public string? ShipCountry { get; set; }
+        public Order_OrderId OrderId { get; set; } //Done
+        public Order_CustomerId CustomerId { get; set; } //Done
+        public Order_EmployeeId? EmployeeId { get; set; } //Done 
+        public Order_OrderDate OrderDate { get; set; } // Done
+        public Order_RequiredDate RequiredDate { get; set; } // Done
+        public Order_ShippedDate? ShippedDate { get; set; } // Done
+        public Order_ShipVia ShipVia { get; set; } // Done
+        public Order_Freight Freight { get; set; } // Done
+        public Order_ShipName? ShipName { get; set; } // Done
+        public Order_ShipAddress? ShipAddress { get; set; } // Done
+        public Order_ShipCity? ShipCity { get; set; } // Done
+        public Order_ShipRegion? ShipRegion { get; set; } // Done
+        public Order_ShipPostalCode? ShipPostalCode { get; set; } // Done
+        public Order_ShipCounty? ShipCountry { get; set; } // Done
 
         public virtual IList<OrderDetail> OrderDetails { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual IList<OrderPayment> OrderPayments { get; set; }
         public virtual Shipment? Shipment { get; set; }
 
-        public decimal SubTotal => OrderDetails.Sum(od => od.ExtendedPrice);
-
-        public decimal Total => Math.Round(SubTotal + Freight, 2);
+        public Order_SubTotal SubTotal => OrderDetails.Sum(od => od.ExtendedPrice); // Done
+        Order_SubTotal order_SubTotal = new Order_SubTotal(()=> OrderDetails.Sum(od => od.ExtendedPrice));
+        public Order_Total Total => Math.Round(SubTotal + Freight, 2); // Done
 
         public static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
         {
