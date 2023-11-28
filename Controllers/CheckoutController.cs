@@ -10,7 +10,6 @@ using System.Linq;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using WebGoatCore.Exceptions;
-using Microsoft.JSInterop.Infrastructure;
 
 namespace WebGoatCore.Controllers
 {
@@ -121,9 +120,8 @@ namespace WebGoatCore.Controllers
             {
                 creditCard.SaveCardForUser();
             }
-        
 
-            DtoOrder DtoOrder = new DtoOrder // her har vi tænkt at lave en DTO :) OG her går vi fra Veiw-model til Model
+            var order = new Order
             {
                 ShipVia = model.ShippingMethod,
                 ShipName = model.ShipTarget,
@@ -138,23 +136,6 @@ namespace WebGoatCore.Controllers
                 RequiredDate = DateTime.Now.AddDays(7),
                 Freight = Math.Round(_shipperRepository.GetShipperByShipperId(model.ShippingMethod).GetShippingCost(model.Cart.SubTotal), 2),
                 EmployeeId = 1,
-            };
-
-          Order order = new Order // her har vi tænkt at lave en DTO :) OG her går vi fra Veiw-model til Model
-            {
-                ShipVia = DtoOrder.ShipVia,
-                ShipName = DtoOrder.ShipName,
-                ShipAddress = DtoOrder.ShipAddress,
-                ShipCity = DtoOrder.ShipCity,
-                ShipRegion = DtoOrder.ShipRegion,
-                ShipPostalCode = DtoOrder.ShipPostalCode,
-                ShipCountry = DtoOrder.ShipCountry,
-                OrderDetails = DtoOrder.OrderDetails,
-                CustomerId = DtoOrder.CustomerId,
-                OrderDate = DtoOrder.OrderDate,
-                RequiredDate = DtoOrder.RequiredDate,
-                Freight = DtoOrder.Freight,
-                EmployeeId = DtoOrder.EmployeeId,
             };
 
             var approvalCode = creditCard.ChargeCard(order.Total);

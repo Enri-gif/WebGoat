@@ -6,14 +6,14 @@ namespace WebGoatCore.Models
 {
     public class OrderDetail
     {
-        public Order_OrderId OrderId { get; set; } // Done, Man vægler at bruge den samme dataType fra Order siden de er ens. 
-        public OrderDetail_ProductId ProductId { get; set; } // Done
-        public OrderDetail_UnitePrice UnitPrice { get; set; } // Done
-        public OrderDetail_Quantity Quantity { get; set; } // Done
-        public OrderDetail_Discount Discount { get; set; } // Done
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
+        public double UnitPrice { get; set; }
+        public short Quantity { get; set; }
+        public float Discount { get; set; }
 
-        public virtual Order Order { get; set; } // er lavet    
-        public virtual Product Product { get; set; } 
+        public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
 
         public decimal DecimalUnitPrice => Convert.ToDecimal(this.UnitPrice);
         public decimal ExtendedPrice => DecimalUnitPrice * Convert.ToDecimal(1 - Discount) * Quantity;

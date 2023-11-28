@@ -5,10 +5,10 @@ namespace WebGoatCore.Models
 {
     public class Supplier
     {
-        public SupplierID SupplierId { get; set; }
-        public CompanyName CompanyName { get; set; }
+        public int SupplierId { get; set; }
+        public string CompanyName { get; set; }
         public string ContactName { get; set; }
-        public string? ContactTitle { get; set; } // man kan sige at "?" er fordi NUll er okie hvilke betyder dette er en mulighed
+        public string? ContactTitle { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
         public string? Region { get; set; }
