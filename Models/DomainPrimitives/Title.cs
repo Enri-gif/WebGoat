@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic
-using System.Text.RegularExpressions
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WebGoatCore.Models
 {
@@ -17,7 +17,7 @@ namespace WebGoatCore.Models
         public void ValidateTitle(string Title)
         {
             // Check length
-            if (Title.length < 1 || Title.length >= 50)
+            if (Title.Length < 1 || Title.Length >= 50)
             {
                 throw new ArgumentOutOfRangeException("Title must be between 1 and 50");
             }
@@ -31,13 +31,13 @@ namespace WebGoatCore.Models
             bool Match = Regex.IsMatch(Title, RegexString);
             if (!Match)
             {
-                throw new InvalidDataException("Invalid Title");
+                throw new ArgumentException("Invalid Title");
             }
 
-            public string GetTitle()
-            {
-                return _title;
-            }
+        }
+        public string GetTitle()
+        {
+            return _title;
         }
     }
 }

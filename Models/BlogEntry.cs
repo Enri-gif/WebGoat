@@ -16,7 +16,7 @@ namespace WebGoatCore.Models
 
         public BlogEntry(Id id, Title title, PostedDate postedDate, Contents contents, Author author)
         {
-            ValidateBlogEntry(id, titlem postedDate, contents, author);
+            ValidateBlogEntry(id, title, postedDate, contents, author);
             Id = id;
             Title = title;
             PostedDate = postedDate;
@@ -59,7 +59,7 @@ namespace WebGoatCore.Models
         {
             return PostedDate.GetPostedDate();
         }
-        public Contents GetContents()
+        public string GetContents()
         {
             return Contents.GetContents();
         }

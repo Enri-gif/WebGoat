@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic
-using System.Text.RegularExpressions
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 
 namespace WebGoatCore.Models
@@ -28,17 +28,10 @@ namespace WebGoatCore.Models
             {
                 throw new ArgumentNullException("Id cannot be null");
             }
-            //Regex validation
-            string RegexString = @"\d+";
-            bool Match = Regex.IsMatch(Id, RegexString);
-            if (!Match)
-            {
-                throw new InvalidDataException("Id is invalid");
-            }
-            public string GetId()
-            {
-                return _id;
-            }
+        }
+        public int GetId()
+        {
+            return _id;
         }
 
     }

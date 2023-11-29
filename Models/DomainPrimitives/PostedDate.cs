@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic
-using System.Text.RegularExpressions
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WebGoatCore.Models
 {
@@ -19,7 +19,7 @@ namespace WebGoatCore.Models
             DateTime CompanyFoundingDate = new DateTime(2010,10,25);
             if (PostedDate < CompanyFoundingDate || PostedDate > DateTime.Now.AddHours(1))
             {
-                throw new InvalidDataException("Invalid DateTime");
+                throw new ArgumentException("Invalid DateTime");
             }
         }
         public DateTime GetPostedDate()

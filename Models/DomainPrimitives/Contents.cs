@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic
-using System.Text.RegularExpressions
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WebGoatCore.Models
 {
@@ -16,7 +16,7 @@ namespace WebGoatCore.Models
 
         public void ValidateContents(string Contents)
         {
-            if (Contents.length < 1 || Contents.length > 2400)
+            if (Contents.Length < 1 || Contents.Length > 2400)
             {
                 throw new ArgumentOutOfRangeException("Blog content must be between 1 and 2400 characters");
             }
@@ -30,12 +30,12 @@ namespace WebGoatCore.Models
             bool Match = Regex.IsMatch(Contents, RegexString);
             if (!Match)
             {
-                throw new InvalidDataException("Invalid characters in blog content");
+                throw new ArgumentException("Invalid characters in blog content");
             }
-            public string GetContents()
-            {
-                return _contents;
-            }
+        }
+        public string GetContents()
+        {
+            return _contents;
         }
     }
 }

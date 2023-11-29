@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic
-using System.Text.RegularExpressions
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WebGoatCore.Models
 {
@@ -16,7 +16,7 @@ namespace WebGoatCore.Models
         public void ValidateAuthor(string Author)
         {
             // Check length
-            if(Author.length < 1 || Author.length >= 50)
+            if(Author.Length < 1 || Author.Length >= 50)
             {
                 throw new ArgumentOutOfRangeException("Author must be between 1 and 50");
             }
@@ -31,10 +31,10 @@ namespace WebGoatCore.Models
             bool Match = Regex.IsMatch(Author, RegexString);
             if (!Match)
             {
-                throw new InvalidDataException("Invalid author");
+                throw new ArgumentException("Invalid author");
             }
         }
-
+        
         public string GetAuthor()
         {
             return _author;
