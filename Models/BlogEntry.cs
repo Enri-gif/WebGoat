@@ -6,11 +6,11 @@ namespace WebGoatCore.Models
 {
     public class BlogEntry
     {
-        public Id Id { get; }
-        public Title Title { get; }
-        public PostedDate PostedDate { get; }
-        public Contents Contents { get; }
-        public Author Author { get; }
+        private Id Id;
+        private Title Title;
+        private PostedDate PostedDate;
+        private Contents Contents;
+        private Author Author;
 
         public virtual IList<BlogResponse> Responses { get; set; }
 
@@ -46,6 +46,22 @@ namespace WebGoatCore.Models
             {
                 throw new NullReferenceException("author is Null");
             }
+        }
+        public int GetId()
+        {
+            return Id.GetId();
+        }
+        public string GetTitle()
+        {
+            return Title.GetTitle();
+        }
+        public DateTime GetPostedDate()
+        {
+            return PostedDate.GetPostedDate();
+        }
+        public Contents GetContents()
+        {
+            return Contents.GetContents();
         }
     }
 }
