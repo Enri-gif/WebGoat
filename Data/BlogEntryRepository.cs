@@ -1,4 +1,6 @@
-﻿using WebGoatCore.Models;
+﻿
+
+using WebGoatCore.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,14 +19,13 @@ namespace WebGoatCore.Data
 
         public BlogEntry CreateBlogEntry(string title, string contents, string username)
         {
-            BlogEntry entry = new BlogEntry
-            (   
-                new Title(title),
-                new PostedDate(DateTime.Now),
-                new Contents(contents),
-                new Author(username)
-                
-            );
+            var entry = new BlogEntry
+            {
+                Title = title,
+                Contents = contents,
+                Author = username,
+                PostedDate = DateTime.Now,
+            };
 
             entry = _context.BlogEntries.Add(entry).Entity;
             _context.SaveChanges();
@@ -33,10 +34,7 @@ namespace WebGoatCore.Data
 
         public BlogEntry GetBlogEntry(int blogEntryId)
         {
-            //return _context.BlogEntries.Single(b => b.Id == blogEntryId);
-            //return _context.BlogEntries.Single().GetId(); // Første forsøg
-            //_context.BlogEntries.Select(id => id.GetId()).Where(id => id.GetId()== Id);
-            return _context.BlogEntries.FirstOrDefault(entry => entry.GetId() == blogEntryId);
+            return _context.BlogEntries.Single(b => b.Id == blogEntryId);
         }
 
         public List<BlogEntry> GetTopBlogEntries()
@@ -47,11 +45,70 @@ namespace WebGoatCore.Data
         public List<BlogEntry> GetTopBlogEntries(int numberOfEntries, int startPosition)
         {
             var blogEntries = _context.BlogEntries
-                //.FirstOrDefault(entry => entry.GetId() == blogEntryId)
-                .OrderByDescending(b => b.GetPostedDate())
+                .OrderByDescending(b => b.PostedDate)
                 .Skip(startPosition)
                 .Take(numberOfEntries);
             return blogEntries.ToList();
         }
     }
 }
+
+
+
+// using WebGoatCore.Models;
+// using Microsoft.EntityFrameworkCore;
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+
+// namespace WebGoatCore.Data
+// {
+//     public class BlogEntryRepository
+//     {
+//         private readonly NorthwindContext _context;
+
+//         public BlogEntryRepository(NorthwindContext context)
+//         {
+//             _context = context;
+//         }
+
+//         public BlogEntry CreateBlogEntry(string title, string contents, string username)
+//         {
+//             BlogEntry entry = new BlogEntry
+//             (   
+//                 new Title(title),
+//                 new PostedDate(DateTime.Now),
+//                 new Contents(contents),
+//                 new Author(username)
+                
+//             );
+
+//             entry = _context.BlogEntries.Add(entry).Entity;
+//             _context.SaveChanges();
+//             return entry;
+//         }
+
+//         public BlogEntry GetBlogEntry(int blogEntryId)
+//         {
+//             //return _context.BlogEntries.Single(b => b.Id == blogEntryId);
+//             //return _context.BlogEntries.Single().GetId(); // Første forsøg
+//             //_context.BlogEntries.Select(id => id.GetId()).Where(id => id.GetId()== Id);
+//             return _context.BlogEntries.FirstOrDefault(entry => entry.GetId() == blogEntryId);
+//         }
+
+//         public List<BlogEntry> GetTopBlogEntries()
+//         {
+//             return GetTopBlogEntries(4, 0);
+//         }
+
+//         public List<BlogEntry> GetTopBlogEntries(int numberOfEntries, int startPosition)
+//         {
+//             var blogEntries = _context.BlogEntries
+//                 //.FirstOrDefault(entry => entry.GetId() == blogEntryId)
+//                 .OrderByDescending(b => b.GetPostedDate())
+//                 .Skip(startPosition)
+//                 .Take(numberOfEntries);
+//             return blogEntries.ToList();
+//         }
+//     }
+// }

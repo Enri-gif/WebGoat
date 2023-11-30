@@ -28,17 +28,23 @@ namespace WebGoatCore.Controllers
         {
             return View(_blogEntryRepository.GetBlogEntry(entryId));
         }
-
+        
         [HttpPost("{entryId}")]
-        public IActionResult Reply(int entryId, string contents)
+        public IActionResult Reply(int entryId, string contents) // her skal dto ind
         {
-            var userName = User?.Identity?.Name ?? "Anonymous";
+            BlogResponsDTO blogResponsDTO = new BlogResponsDTO();
+            blogResponsDTO.Author = User?.Identity?.Name ?? "Anonymous";
+            blogResponsDTO.Contents = contents;
+            blogResponsDTO.BlogEntryId = entryId;
+            blogResponsDTO.ResponseDate = DateTime.Now;
+            
+
             var response = new BlogResponse()
             {
-                Author = userName,
-                Contents = contents,
-                BlogEntryId = entryId,
-                ResponseDate = DateTime.Now
+                Author = blogResponsDTO.Author,
+                Contents =  blogResponsDTO.Contents,
+                BlogEntryId = blogResponsDTO.BlogEntryId,
+                ResponseDate = blogResponsDTO.ResponseDate
             };
             _blogResponseRepository.CreateBlogResponse(response);
 
