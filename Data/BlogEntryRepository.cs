@@ -34,7 +34,9 @@ namespace WebGoatCore.Data
         public BlogEntry GetBlogEntry(int blogEntryId)
         {
             //return _context.BlogEntries.Single(b => b.Id == blogEntryId);
-            return _context.BlogEntries.Where(Id => GetBlogEntry(blogEntryId)).Single(); // Første forsøg
+            //return _context.BlogEntries.Single().GetId(); // Første forsøg
+            //_context.BlogEntries.Select(id => id.GetId()).Where(id => id.GetId()== Id);
+            return _context.BlogEntries.FirstOrDefault(entry => entry.GetId() == blogEntryId);
         }
 
         public List<BlogEntry> GetTopBlogEntries()
