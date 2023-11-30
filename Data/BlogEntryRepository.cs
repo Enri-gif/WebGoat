@@ -47,7 +47,8 @@ namespace WebGoatCore.Data
         public List<BlogEntry> GetTopBlogEntries(int numberOfEntries, int startPosition)
         {
             var blogEntries = _context.BlogEntries
-                .OrderByDescending(b => b.PostedDate)
+                //.FirstOrDefault(entry => entry.GetId() == blogEntryId)
+                .OrderByDescending(b => b.GetPostedDate())
                 .Skip(startPosition)
                 .Take(numberOfEntries);
             return blogEntries.ToList();
