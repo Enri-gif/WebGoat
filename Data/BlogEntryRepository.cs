@@ -17,13 +17,14 @@ namespace WebGoatCore.Data
 
         public BlogEntry CreateBlogEntry(string title, string contents, string username)
         {
-            var entry = new BlogEntry
-            {
-                Title = title,
-                Contents = contents,
-                Author = username,
-                PostedDate = DateTime.Now,
-            };
+            BlogEntry entry = new BlogEntry
+            (   
+                new Title(title),
+                new PostedDate(DateTime.Now),
+                new Contents(contents),
+                new Author(username)
+                
+            );
 
             entry = _context.BlogEntries.Add(entry).Entity;
             _context.SaveChanges();
@@ -32,7 +33,8 @@ namespace WebGoatCore.Data
 
         public BlogEntry GetBlogEntry(int blogEntryId)
         {
-            return _context.BlogEntries.Single(b => b.Id == blogEntryId);
+            //return _context.BlogEntries.Single(b => b.Id == blogEntryId);
+            return _context.BlogEntries.Single(b => b == blogEntryId ); // Første forsøg
         }
 
         public List<BlogEntry> GetTopBlogEntries()

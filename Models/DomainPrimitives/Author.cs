@@ -8,7 +8,7 @@ namespace WebGoatCore.Models
     {
         private string _author;
 
-        Author(string Author)
+        public Author(string Author)
         {
             ValidateAuthor(Author);
             _author = Author;       

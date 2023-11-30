@@ -23,7 +23,7 @@
                     <div class="blogResponseSignature">@response.Author - @response.ResponseDate</div>
                 </div>
             }
-            <a class="button blogRespondButton" asp-action="Reply" asp-route-entryId=@blogEntry.Id>Respond</a>
+            <a class="button blogRespondButton" asp-action="Reply" asp-route-entryId=@blogEntry.GetId()>Respond</a>
         </div>
     }
 </div>
